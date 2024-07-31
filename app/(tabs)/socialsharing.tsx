@@ -1,6 +1,4 @@
-import { Alert, Button, Linking, Share, View } from 'react-native';
-
-import React from 'react'
+import { Alert, Button, Linking, Share, StyleSheet, View } from 'react-native';
 
 const socialsharing = () => {
     const onShare = async () => {
@@ -26,9 +24,9 @@ const socialsharing = () => {
         }
     };
 
-    // Share on Twitter
+    // Share on X.com
     const shareOnTwitter = async () => {
-        const message = encodeURIComponent('Check out this awesome articles on React Native');
+        const message = encodeURIComponent('Check out this awesome articles on React Native Expo App to x');
         const url = encodeURIComponent('https://kodaschool.com/category/react-native');
         const twitterUrl = `twitter://post?message=${message}&url=${url}`;
         const webUrl = `https://twitter.com/intent/tweet?text=${message}&url=${url}`;
@@ -44,11 +42,30 @@ const socialsharing = () => {
         }
     }
 
+    // Share on Linked In
+    const shareOnLinkedIn = async () => {
+        const message = encodeURIComponent('Check out this awesome articles on React Native from an Expo App to Linked In');
+        const url = encodeURIComponent('https://kodaschool.com/category/react-native');
+        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?message=${message}&url=${url}`;
+        const webUrl = `https://www.linkedin.com/sharing/share-offsite/?text=${message}&url=${url}`;
+        try {
+            const supported = await Linking.canOpenURL(linkedInUrl);
+            if (supported) {
+                await Linking.openURL(linkedInUrl);
+            } else {
+                await Linking.openURL(webUrl);
+            }
+        } catch (error) {
+            console.error('Error sharing to Twitter:', error);
+        }
+    }
+
 
     return (
         <View>
             <Button onPress={onShare} title="RN Share API" />
-            <Button onPress={shareOnTwitter} title="RN Share API" />
+            <Button onPress={shareOnTwitter} title="RN Share On X.com" />
+            <Button onPress={shareOnLinkedIn} title="RN Share On X.com" />
         </View>
     )
 }
