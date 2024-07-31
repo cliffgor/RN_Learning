@@ -19,7 +19,17 @@ export default function Layout() {
             title: 'Explore Page',
           }}
         />
+
+        <Drawer.Screen
+          name="socialsharing" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: 'Social Sharing',
+            title: 'Social Sharing Page',
+          }}
+        />
       </Drawer>
+
+
     </GestureHandlerRootView>
   );
 }
