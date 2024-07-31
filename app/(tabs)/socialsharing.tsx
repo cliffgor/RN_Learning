@@ -65,7 +65,7 @@ const socialsharing = () => {
         <View>
             <Button onPress={onShare} title="RN Share API" />
             <Button onPress={shareOnTwitter} title="RN Share On X.com" />
-            <Button onPress={shareOnLinkedIn} title="RN Share On X.com" />
+            <Button onPress={shareOnLinkedIn} title="RN Share On Linked In" />
         </View>
     )
 }
