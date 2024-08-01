@@ -1,10 +1,10 @@
 import { Button, Text, View } from 'react-native'
 
-import Share from 'react-native-share';
+// import Share from 'react-native-share';
 
 // Share using 3rd Party React Native Share Library
 
-
+// Commenting the code since it requires Access to RN CLI to install the library
 
 const socialsharinglib = () => {
     const onShare = async () => {
@@ -14,12 +14,12 @@ const socialsharinglib = () => {
             title: 'App Link'
         };
 
-        try {
-            const ShareResponse = await Share.open(options);
-            console.log(JSON.stringify(ShareResponse));
-        } catch (error) {
-            console.log('Error =>', error);
-        }
+        // try {
+        //     const ShareResponse = await Share.open(options);
+        //     console.log(JSON.stringify(ShareResponse));
+        // } catch (error) {
+        //     console.log('Error =>', error);
+        // }
     };
 
     return (
