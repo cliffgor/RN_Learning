@@ -1,13 +1,51 @@
-import { Alert, Button, Linking, Share, StyleSheet, View } from 'react-native';
+import { Alert, Button, Linking, Modal, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 
-const socialsharing = () => {
-    const onShare = async () => {
+interface CustomShareModalProps {
+    visible: boolean;
+    onClose: () => void;
+    onShare: () => Promise<void>;
+    onShareTwitter: () => Promise<void>;
+    onShareLinkedIn: () => Promise<void>;
+}
+
+const CustomShareModal: React.FC<CustomShareModalProps> = ({ visible, onClose, onShare, onShareTwitter, onShareLinkedIn }) => {
+    return (
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={visible}
+            onRequestClose={onClose}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Share via</Text>
+                    <TouchableOpacity style={styles.button} onPress={onShare}>
+                        <Text style={styles.buttonText}>React Native Share API</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={onShareTwitter}>
+                        <Text style={styles.buttonText}>Share on X.com</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={onShareLinkedIn}>
+                        <Text style={styles.buttonText}>Share on LinkedIn</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button, styles.buttonClose]} onPress={onClose}>
+                        <Text style={styles.buttonText}>Close</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    );
+};
+
+const SocialSharing: React.FC = () => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+    const onShare = async (): Promise<void> => {
         try {
             const result = await Share.share({
-                message:
-                    'React Native | A framework for building native apps using React',
-                title:
-                    'React Native Share API| Article from KodaSchool',
+                message: 'React Native | A framework for building native apps using React',
+                title: 'React Native Share API | Article from KodaSchool',
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -17,15 +55,13 @@ const socialsharing = () => {
                 }
             } else if (result.action === Share.dismissedAction) {
                 // dismissed
-
             }
         } catch (error: any) {
             Alert.alert(error.message);
         }
     };
 
-    // Share on X.com
-    const shareOnTwitter = async () => {
+    const shareOnTwitter = async (): Promise<void> => {
         const message = encodeURIComponent('Check out this awesome articles on React Native Expo App to x');
         const url = encodeURIComponent('https://kodaschool.com/category/react-native');
         const twitterUrl = `twitter://post?message=${message}&url=${url}`;
@@ -42,32 +78,79 @@ const socialsharing = () => {
         }
     }
 
-    // Share on Linked In
-    const shareOnLinkedIn = async () => {
+    const shareOnLinkedIn = async (): Promise<void> => {
         const message = encodeURIComponent('Check out this awesome articles on React Native from an Expo App to Linked In');
         const url = encodeURIComponent('https://kodaschool.com/category/react-native');
         const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?message=${message}&url=${url}`;
-        const webUrl = `https://www.linkedin.com/sharing/share-offsite/?text=${message}&url=${url}`;
         try {
-            const supported = await Linking.canOpenURL(linkedInUrl);
-            if (supported) {
-                await Linking.openURL(linkedInUrl);
-            } else {
-                await Linking.openURL(webUrl);
-            }
+            await Linking.openURL(linkedInUrl);
         } catch (error) {
-            console.error('Error sharing to Twitter:', error);
+            console.error('Error sharing to LinkedIn:', error);
         }
     }
 
-
     return (
-        <View>
-            <Button onPress={onShare} title="RN Share API" />
-            <Button onPress={shareOnTwitter} title="RN Share On X.com" />
-            <Button onPress={shareOnLinkedIn} title="RN Share On Linked In" />
+        <View style={styles.container}>
+            <Button onPress={() => setModalVisible(true)} title="Open Share Dialog" />
+            <CustomShareModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onShare={onShare}
+                onShareTwitter={shareOnTwitter}
+                onShareLinkedIn={shareOnLinkedIn}
+            />
         </View>
-    )
+    );
 }
 
-export default socialsharing
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        backgroundColor: '#2196F3',
+        marginVertical: 10,
+    },
+    buttonClose: {
+        backgroundColor: '#FF6347',
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
+
+export default SocialSharing;

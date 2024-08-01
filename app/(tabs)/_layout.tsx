@@ -27,6 +27,14 @@ export default function Layout() {
             title: 'Social Sharing Page',
           }}
         />
+
+        <Drawer.Screen
+          name="socialsharinglib" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: 'Social Sharing Library',
+            title: 'Social Sharing Page',
+          }}
+        />
       </Drawer>
 
 
