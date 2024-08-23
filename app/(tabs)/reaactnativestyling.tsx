@@ -22,7 +22,7 @@ const reaactnativestyling = () => {
         <Text>Hello Flexbox Box 3</Text>
       </View>
       <View style={styles.platformCode}>
-
+        <Text style={styles.platfromText}>{platfromInfo}</Text>
       </View>
       <Button
         title="Change Conditional Styling text"
@@ -30,6 +30,10 @@ const reaactnativestyling = () => {
           const changedColor = color === 'yellow' ? 'green' : 'purple'
           setColor(changedColor)
         }}
+      />
+      <Button 
+      title="Show running Platfrom"
+      onPress={showPlatform}
       />
     </View>
   )
@@ -66,5 +70,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'pink'
       }
     }),
+  },
+  platformText : {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
   }
 })
