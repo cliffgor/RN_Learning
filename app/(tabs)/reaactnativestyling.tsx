@@ -22,7 +22,7 @@ const reaactnativestyling = () => {
         <Text>Hello Flexbox Box 3</Text>
       </View>
       <View style={styles.platformCode}>
-        <Text style={styles.platfromText}>{platfromInfo}</Text>
+        <Text style={styles.platformText}>{platfromInfo}</Text>
       </View>
       <Button
         title="Change Conditional Styling text"
