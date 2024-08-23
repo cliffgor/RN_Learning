@@ -5,6 +5,12 @@ import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors'
 
 const reaactnativestyling = () => {
   const [color, setColor] = useState('yellow')
+  const [platfromInfo, setPlatfromInfo] = useState('')
+
+  const showPlatform = () => {
+    setPlatfromInfo(`You are currently running this app on an ${Platform.OS}`)
+  }
+  
   return (
     <View style={styles.container}>
       <Text style={{ color: 'blue' }}>Hello Styling</Text>
