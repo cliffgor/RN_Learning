@@ -6,7 +6,7 @@ import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors'
 const reaactnativestyling = () => {
   const [color, setColor] = useState('yellow')
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={{ color: 'blue' }}>Hello Styling</Text>
       <Text style={styles.inBuiltStyling}>Hello In built Styling</Text>
       <Text style={{ color: color }}>Hello conditional styling</Text>
@@ -32,6 +32,10 @@ const reaactnativestyling = () => {
 export default reaactnativestyling
 
 const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    padding: 20
+  },
   inBuiltStyling: {
     color: 'red',
   },
