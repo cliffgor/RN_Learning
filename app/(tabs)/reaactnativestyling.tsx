@@ -1,8 +1,6 @@
 import { Button, Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 
-import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors'
-
 const reaactnativestyling = () => {
   const [color, setColor] = useState('yellow')
   const [platfromInfo, setPlatfromInfo] = useState('')
@@ -50,7 +48,6 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   platformCode: {
-    flex: 1,
     borderRadius: 8,
     padding: 16,
     margin: 8,
